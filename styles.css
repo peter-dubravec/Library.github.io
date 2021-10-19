@@ -1,0 +1,152 @@
+body {
+  height: 100vh;
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+p {
+  margin: 0;
+}
+.bookscontainer {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: flex-start;
+  padding-top: 30px;
+  justify-content: center;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(121, 50, 9, 1) 50%,
+    rgba(0, 212, 255, 1) 100%
+  );
+}
+
+.booksDiv {
+  display: flex;
+  width: 840px;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.rowBook {
+  width: 250px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  border-radius: 15px;
+  background-color: rgb(167, 107, 100);
+  box-shadow: 0 8px 6px -6px black;
+  font-size: 20px;
+  font-weight: 500;
+  position: relative;
+}
+
+/* ------------------ */
+
+.popup {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+  flex-wrap: wrap;
+}
+
+.popcontainer {
+  background-color: white;
+  width: 350px;
+  height: 430px;
+  position: relative;
+  border-radius: 8px;
+}
+
+div.form-element.noflex {
+  display: block;
+  margin-bottom: 30px;
+}
+
+div.form {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  justify-content: center;
+}
+
+input.book {
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+button {
+  padding: 10px 20px;
+}
+
+h2 {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 0;
+  right: 14px;
+  font-size: 32px;
+  font-weight: 600;
+  transform: rotate(45deg);
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.close-btn .close-btn-small {
+  margin-top: 20px;
+}
+.top {
+  height: 130px;
+  background-color: lightsalmon;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+#add {
+  margin-left: calc(50% - 184px);
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+  margin-left: 20px;
+}
+
+button {
+  border-radius: 5px;
+  border: 0px;
+  outline: none;
+  border: 1px solid black;
+}
+
+.readButton {
+  background-color: green;
+}
+
+.btnNotRead {
+  background-color: rgb(228, 115, 115);
+}
+
+button:active {
+  transform: translateY(5px);
+}

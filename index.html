@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library</title>
+    <script src="main.js" defer></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="top">
+      <h1>Library</h1>
+      <button id="add">Add book</button>
+    </div>
+
+    <div class="bookscontainer">
+      <div class="booksDiv"></div>
+    </div>
+
+    <div class="popup">
+      <div class="popcontainer">
+        <div class="close-btn">+</div>
+        <div class="form">
+          <h2>Add Book</h2>
+          <div class="form-element">
+            <label for="author">Author<br /></label>
+
+            <input
+              class="book"
+              type="text"
+              id="author"
+              placeholder="Enter name of author"
+            />
+          </div>
+          <div class="form-element">
+            <label for="bookname"
+              >Name of book
+              <br />
+            </label>
+            <input
+              class="book"
+              type="text"
+              id="bookname"
+              placeholder="Enter name of book"
+            />
+          </div>
+          <div class="form-element noflex">
+            <input type="checkbox" id="read" />
+            <label for="read">Read</label>
+          </div>
+          <div class="form-element">
+            <button type="submit" class="submit">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
