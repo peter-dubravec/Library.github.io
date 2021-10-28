@@ -1,21 +1,34 @@
+// Exercise with classes
+
 let myLibrary = [];
 
-function Book(author, bookName, read) {
-  // constructor
-  this.author = author;
-  this.name = bookName;
-  this.read = read;
+class Book {
+  constructor(author, bookName, read) {
+    this.author = author;
+    this.bookName = bookName;
+    this.read = read;
+  }
 }
 
+// function Book(author, bookName, read) {
+//   // constructor
+//   this.author = author;
+//   this.name = bookName;
+//   this.read = read;
+// }
+
 Book.prototype.toggleRead = (e) => {
+  let book = myLibrary[e.target.getAttribute("data-read")];
   if (e.target.textContent == "Read") {
     e.target.textContent = "Not Read";
     e.target.classList.remove("readButton");
     e.target.classList.add("btnNotRead");
+    book.read = false;
   } else {
     e.target.textContent = "Read";
     e.target.classList.remove("btnNotRead");
     e.target.classList.add("readButton");
+    book.read = true;
   }
 };
 
@@ -65,6 +78,7 @@ function addToPage() {
     p.addEventListener("click", deleteItem);
 
     let readButton = document.createElement("button");
+    readButton.setAttribute("data-read", `${i}`);
 
     if (myLibrary[i].read) {
       readButton.textContent = "Read";
