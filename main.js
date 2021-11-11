@@ -42,6 +42,8 @@ function Book(author, bookName, read) {
   this.read = read;
 }
 
+// not the best design AT ALL, but works.. couldn t figure out how to bind this keyword to apropriate object, will come back to it later
+
 Book.prototype.toggleRead = (e) => {
   let book = myLibrary[e.target.getAttribute("data-read")];
   if (e.target.textContent == "Read") {
@@ -49,11 +51,13 @@ Book.prototype.toggleRead = (e) => {
     e.target.classList.remove("readButton");
     e.target.classList.add("btnNotRead");
     book.read = false;
+    localStorage.setItem("library", JSON.stringify(myLibrary));
   } else {
     e.target.textContent = "Read";
     e.target.classList.remove("btnNotRead");
     e.target.classList.add("readButton");
     book.read = true;
+    localStorage.setItem("library", JSON.stringify(myLibrary));
   }
 };
 function addProtoMethods(libraryList) {
@@ -65,10 +69,10 @@ function addProtoMethods(libraryList) {
 if (storageAvailable("localStorage")) {
   if (localStorage.getItem("library")) {
     let retrievedObject = localStorage.getItem("library");
-    console.log(retrievedObject);
+
     myLibrary = JSON.parse(retrievedObject);
     addProtoMethods(myLibrary);
-    console.log(myLibrary);
+
     addToPage();
   }
 }
@@ -100,15 +104,19 @@ function deleteItem(e) {
   addToPage();
 }
 
-function addToPage() {
-  let booksDiv = document.querySelector(".booksDiv");
-
+function removePreviusBooks(booksDiv) {
   if (booksDiv.childNodes.length > 0) {
     let remove = document.querySelectorAll(".rowBook");
     remove.forEach((element) => {
       booksDiv.removeChild(element);
     });
   }
+}
+
+function addToPage() {
+  let booksDiv = document.querySelector(".booksDiv");
+
+  removePreviusBooks(booksDiv);
 
   for (let i = 0; i < myLibrary.length; i++) {
     let rowBook = document.createElement("div");
@@ -132,7 +140,7 @@ function addToPage() {
       readButton.textContent = "Not Read";
       readButton.classList.add("btnNotRead");
     }
-
+    console.log(myLibrary[i]);
     readButton.addEventListener("click", myLibrary[i].toggleRead);
 
     divAuthor.textContent = myLibrary[i].author;
