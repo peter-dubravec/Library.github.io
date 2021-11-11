@@ -1,49 +1,12 @@
-function storageAvailable(type) {
-  var storage;
-  try {
-    storage = window[type];
-    var x = "__storage_test__";
-    storage.setItem(x, x);
-    storage.removeItem(x);
-    return true;
-  } catch (e) {
-    return (
-      e instanceof DOMException &&
-      // everything except Firefox
-      (e.code === 22 ||
-        // Firefox
-        e.code === 1014 ||
-        // test name field too, because code might not be present
-        // everything except Firefox
-        e.name === "QuotaExceededError" ||
-        // Firefox
-        e.name === "NS_ERROR_DOM_QUOTA_REACHED") &&
-      // acknowledge QuotaExceededError only if there's something already stored
-      storage &&
-      storage.length !== 0
-    );
-  }
-}
-
 let myLibrary = [];
 
-// class Book {
-//   constructor(author, bookName, read) {
-//     this.author = author;
-//     this.bookName = bookName;
-//     this.read = read;
-//   }
-// }
-
 function Book(author, bookName, read) {
-  // constructor
   this.author = author;
   this.name = bookName;
   this.read = read;
 }
 
 // not the best design AT ALL, but works.. couldn t figure out how to bind this keyword to apropriate object, will come back to it later
-
 Book.prototype.toggleRead = (e) => {
   let book = myLibrary[e.target.getAttribute("data-read")];
   if (e.target.textContent == "Read") {
@@ -60,24 +23,6 @@ Book.prototype.toggleRead = (e) => {
     localStorage.setItem("library", JSON.stringify(myLibrary));
   }
 };
-function addProtoMethods(libraryList) {
-  libraryList.forEach((book) => {
-    Object.setPrototypeOf(book, Book.prototype);
-  });
-}
-
-if (storageAvailable("localStorage")) {
-  if (localStorage.getItem("library")) {
-    let retrievedObject = localStorage.getItem("library");
-
-    myLibrary = JSON.parse(retrievedObject);
-    addProtoMethods(myLibrary);
-
-    addToPage();
-  }
-}
-
-// Exercise with classes
 
 let booksDiv = document.querySelector(".booksDiv");
 
@@ -140,7 +85,7 @@ function addToPage() {
       readButton.textContent = "Not Read";
       readButton.classList.add("btnNotRead");
     }
-    console.log(myLibrary[i]);
+
     readButton.addEventListener("click", myLibrary[i].toggleRead);
 
     divAuthor.textContent = myLibrary[i].author;
@@ -151,8 +96,6 @@ function addToPage() {
   }
   document.querySelector(".popup").style.display = "none";
 }
-
-// ------------------------------------
 
 function popup() {
   document.querySelector("#author").value = "";
@@ -168,3 +111,48 @@ function close() {
 document.querySelector(".submit").addEventListener("click", addBookToLibrary);
 document.querySelector("#add").addEventListener("click", popup);
 document.querySelector(".close-btn").addEventListener("click", close);
+
+function storageAvailable(type) {
+  var storage;
+  try {
+    storage = window[type];
+    var x = "__storage_test__";
+    storage.setItem(x, x);
+    storage.removeItem(x);
+    return true;
+  } catch (e) {
+    return (
+      e instanceof DOMException &&
+      // everything except Firefox
+      (e.code === 22 ||
+        // Firefox
+        e.code === 1014 ||
+        // test name field too, because code might not be present
+        // everything except Firefox
+        e.name === "QuotaExceededError" ||
+        // Firefox
+        e.name === "NS_ERROR_DOM_QUOTA_REACHED") &&
+      // acknowledge QuotaExceededError only if there's something already stored
+      storage &&
+      storage.length !== 0
+    );
+  }
+}
+
+function addProtoMethods(libraryList) {
+  libraryList.forEach((book) => {
+    Object.setPrototypeOf(book, Book.prototype);
+  });
+}
+
+if (storageAvailable("localStorage")) {
+  if (localStorage.getItem("library")) {
+    let retrievedObject = localStorage.getItem("library");
+
+    myLibrary = JSON.parse(retrievedObject);
+
+    addProtoMethods(myLibrary);
+
+    addToPage();
+  }
+}

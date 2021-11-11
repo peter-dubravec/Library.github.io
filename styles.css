@@ -147,10 +147,6 @@ button {
   background-color: rgb(228, 115, 115);
 }
 
-button:active {
-  transform: translateY(5px);
-}
-
 @media (max-width: 900px) {
   .booksDiv {
     width: 800px;
