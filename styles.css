@@ -29,7 +29,7 @@ p {
   display: flex;
   width: 840px;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 45px;
 }
 
 .rowBook {
@@ -149,4 +149,43 @@ button {
 
 button:active {
   transform: translateY(5px);
+}
+
+@media (max-width: 900px) {
+  .booksDiv {
+    width: 800px;
+    gap: 25px;
+  }
+}
+
+@media (max-width: 840px) {
+  .rowBook {
+    width: 200px;
+    height: 200px;
+  }
+  .booksDiv {
+    width: 650px;
+    gap: 25px;
+  }
+}
+
+@media (max-width: 700px) {
+  .popcontainer {
+    transform: scale(0.95);
+  }
+  .booksDiv {
+    width: 425px;
+    gap: 25px;
+  }
+}
+
+@media (max-width: 560px) {
+  .popcontainer {
+    transform: scale(0.9);
+  }
+  .booksDiv {
+    flex-direction: column;
+    align-items: center;
+    flex-basis: 50%;
+  }
 }

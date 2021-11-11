@@ -1,21 +1,46 @@
-// Exercise with classes
-
-let myLibrary = [];
-
-class Book {
-  constructor(author, bookName, read) {
-    this.author = author;
-    this.bookName = bookName;
-    this.read = read;
+function storageAvailable(type) {
+  var storage;
+  try {
+    storage = window[type];
+    var x = "__storage_test__";
+    storage.setItem(x, x);
+    storage.removeItem(x);
+    return true;
+  } catch (e) {
+    return (
+      e instanceof DOMException &&
+      // everything except Firefox
+      (e.code === 22 ||
+        // Firefox
+        e.code === 1014 ||
+        // test name field too, because code might not be present
+        // everything except Firefox
+        e.name === "QuotaExceededError" ||
+        // Firefox
+        e.name === "NS_ERROR_DOM_QUOTA_REACHED") &&
+      // acknowledge QuotaExceededError only if there's something already stored
+      storage &&
+      storage.length !== 0
+    );
   }
 }
 
-// function Book(author, bookName, read) {
-//   // constructor
-//   this.author = author;
-//   this.name = bookName;
-//   this.read = read;
+let myLibrary = [];
+
+// class Book {
+//   constructor(author, bookName, read) {
+//     this.author = author;
+//     this.bookName = bookName;
+//     this.read = read;
+//   }
 // }
+
+function Book(author, bookName, read) {
+  // constructor
+  this.author = author;
+  this.name = bookName;
+  this.read = read;
+}
 
 Book.prototype.toggleRead = (e) => {
   let book = myLibrary[e.target.getAttribute("data-read")];
@@ -31,6 +56,24 @@ Book.prototype.toggleRead = (e) => {
     book.read = true;
   }
 };
+function addProtoMethods(libraryList) {
+  libraryList.forEach((book) => {
+    Object.setPrototypeOf(book, Book.prototype);
+  });
+}
+
+if (storageAvailable("localStorage")) {
+  if (localStorage.getItem("library")) {
+    let retrievedObject = localStorage.getItem("library");
+    console.log(retrievedObject);
+    myLibrary = JSON.parse(retrievedObject);
+    addProtoMethods(myLibrary);
+    console.log(myLibrary);
+    addToPage();
+  }
+}
+
+// Exercise with classes
 
 let booksDiv = document.querySelector(".booksDiv");
 
@@ -46,12 +89,14 @@ function addBookToLibrary() {
   let book = new Book(author, bookName, read);
 
   myLibrary.push(book);
+  localStorage.setItem("library", JSON.stringify(myLibrary));
   addToPage();
 }
 
 function deleteItem(e) {
   let index = e.target.getAttribute("data-delete");
   myLibrary.splice(index, 1);
+  localStorage.setItem("library", JSON.stringify(myLibrary));
   addToPage();
 }
 
